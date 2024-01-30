@@ -17,8 +17,7 @@
             <p class="text-gray-400">
                 {{ task.description }}
             </p>
-            <RouterLink :to="{ name: 'task', params: { taskId: task.id }, query: { stageId: task.stageId } }"
-                class="absolute z-10 top-0 left-0 w-full h-full" />
+            <a @click="openTask" class="absolute cursor-pointer z-10 top-0 left-0 w-full h-full"></a>
         </div>
         <div v-if="isShowModal" class="fixed z-30 flex place-content-center top-0 left-0 backdrop-blur w-full h-full">
             <div class="relative h-max p-5 border bg-white top-1/2 -translate-y-1/2">
@@ -89,6 +88,10 @@ export default {
             const newDescription = event.target.elements.description.value;
             this.changeTaskInformation(this.task.stageId, this.task.id, newName, newDescription);
             this.closeEditModal();
+        },
+
+        openTask() {
+            this.$router.push({ name: 'task', params: { taskId: this.task.id }, query: { stageId: this.task.stageId } });
         },
     },
 }
